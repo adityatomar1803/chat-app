@@ -1,16 +1,27 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
+import { useProfile } from '../context/profile.context';
 // import { Redirect } from 'react-router/cjs/react-router.min';
 // import { Redirect } from 'react-router-dom';
 
 const PublicRoute = ({ children, ...routeProps }) => {
-  const profile = false;
+  console.log('inside public route');
+  // const profile = true;
+  const { profile, isLoading } = useProfile();
 
-  return profile ? (
-    <Redirect to="/" />
-  ) : (
-    <Route {...routeProps}>{children}</Route>
-  );
+  if (isLoading && !profile) {
+    return (
+      <Container>
+        <Loader inverse center content="loading..." size="md" speed="slow" />
+      </Container>
+    );
+  }
+
+  if (profile && !isLoading) {
+    return <Redirect to="/" />;
+  }
+
+  return <Route {...routeProps}>{children}</Route>;
 };
 
 export default PublicRoute;

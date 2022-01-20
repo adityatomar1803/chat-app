@@ -1,9 +1,14 @@
 import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/database';
 
-const firebaseConfig = {
+const config = {
   apiKey: 'AIzaSyAsJfUUNKRaReYr04Meb5I93rL2gax7AE8',
 
   authDomain: 'chat-app-ee819.firebaseapp.com',
+
+  databaseURL:
+    'https://chat-app-ee819-default-rtdb.asia-southeast1.firebasedatabase.app',
 
   projectId: 'chat-app-ee819',
 
@@ -15,3 +20,5 @@ const firebaseConfig = {
 };
 
 const app = firebase.initializeApp(config);
+export const auth = app.auth();
+export const database = app.database();
