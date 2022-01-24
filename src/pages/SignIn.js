@@ -10,6 +10,10 @@ import {
 } from 'rsuite';
 import { auth, database } from '../misc/firebase';
 import firebase from 'firebase/app';
+import { Icon } from '@rsuite/icons';
+// import { Admin, Email } from '@rsuite/icons/lib/icons';
+import { FaFacebookMessenger } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 
 const SignIn = () => {
   console.log('inside sign in');
@@ -59,12 +63,19 @@ const SignIn = () => {
               </div>
 
               <div className="mt-3">
-                <Button color="blue" block onClick={onFacebookSignIn}>
+                <Button appearance="primary" block onClick={onFacebookSignIn}>
+                  <Icon as={FaFacebookMessenger} size="2em" />
                   {/* <IconButton icon="facebook" appearance="primary" />  */}
                   Continue with Facebook
                 </Button>
-                <Button color="green" block onClick={onGoogleSignIn}>
+                <Button
+                  color="orange"
+                  appearance="primary"
+                  block
+                  onClick={onGoogleSignIn}
+                >
                   {/* <IconButton icon="google" appearance="primary" />  */}
+                  <Icon as={FcGoogle} size="2em" />
                   Continue with Google
                 </Button>
               </div>
