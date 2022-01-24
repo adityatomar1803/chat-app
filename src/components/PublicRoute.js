@@ -3,6 +3,7 @@ import { Redirect, Route } from 'react-router';
 import { useProfile } from '../context/profile.context';
 // import { Redirect } from 'react-router/cjs/react-router.min';
 // import { Redirect } from 'react-router-dom';
+import { Container, Loader } from 'rsuite';
 
 const PublicRoute = ({ children, ...routeProps }) => {
   console.log('inside public route');
