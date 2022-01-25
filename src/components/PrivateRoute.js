@@ -16,7 +16,7 @@ const PrivateRoute = ({ children, ...routeProps }) => {
   // return
   if (isLoading && !profile) {
     return (
-      <Container>
+      <Container className="mt-page ml-6">
         {/* <Loader inverse center content="loading..." size="md" speed="slow" /> */}
         {/* <Loader size="md" content="Medium" /> */}
         <Icon as={ImSpinner} pulse size="3em" />

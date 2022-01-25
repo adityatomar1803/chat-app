@@ -4,7 +4,7 @@ import { useProfile } from '../context/profile.context';
 // import { Redirect } from 'react-router/cjs/react-router.min';
 // import { Redirect } from 'react-router-dom';
 import { Container } from 'rsuite';
-import Loader from 'rsuite/Loader';
+// import Loader from 'rsuite/Loader';
 import { Icon } from '@rsuite/icons';
 import { ImSpinner } from 'react-icons/im';
 
@@ -15,7 +15,13 @@ const PublicRoute = ({ children, ...routeProps }) => {
 
   if (isLoading && !profile) {
     return (
-      <Container>
+      <Container
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {/* <Loader inverse center content="loading..." size="md" speed="slow" /> */}
         {/* <Loader size="md" content="Medium" /> */}
         <Icon as={ImSpinner} pulse size="3em" style={{ color: 'red' }} />
