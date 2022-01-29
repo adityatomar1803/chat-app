@@ -18,13 +18,14 @@ export const ProfileProvider = ({ children }) => {
         useRef.on('value', snap => {
           console.log('snap:', snap);
 
-          const { name, createdAt } = snap.val();
+          const { name, createdAt, avatar } = snap.val();
 
           // console.log(err);
 
           const data = {
             name,
             createdAt,
+            avatar,
             uid: authObj.uid,
             email: authObj.email,
           };
