@@ -1,10 +1,7 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router';
+import { Navigate, Redirect, Route } from 'react-router';
 import { useProfile } from '../context/profile.context';
-// import { Redirect } from 'react-router/cjs/react-router.min';
-// import { Redirect } from 'react-router-dom';
 import { Container } from 'rsuite';
-// import Loader from 'rsuite/Loader';
 import { Icon } from '@rsuite/icons';
 import { ImSpinner } from 'react-icons/im';
 

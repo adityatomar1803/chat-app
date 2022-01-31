@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Routes, Switch, useRouteMatch } from 'react-router';
 import { Grid, Row, Col } from 'rsuite';
 import Sidebar from '../../components/Sidebar';
 import { RoomsProvider } from '../../context/rooms.context';
@@ -10,10 +10,10 @@ const Home = () => {
   console.log('inside home');
 
   const isDesktop = useMediaQuery('(min-width:992px)');
-  // const { isExact } = useRouteMatch();
+  const { isExact } = useRouteMatch();
 
-  const canRenderSidebar = isDesktop;
-  // const canRenderSidebar = isDesktop || isExact;
+  // const canRenderSidebar = isDesktop;
+  const canRenderSidebar = isDesktop || isExact;
   return (
     <RoomsProvider>
       <Grid fluid className="h-100">

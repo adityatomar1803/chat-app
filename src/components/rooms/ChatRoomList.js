@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom';
 const ChatRoomList = ({ aboveElementHeight }) => {
   console.log('inside chat room list');
   const rooms = useRooms();
-  // const location = useLocation();
+  const location = useLocation();
   console.log(rooms);
   return (
     <Nav
@@ -19,7 +19,7 @@ const ChatRoomList = ({ aboveElementHeight }) => {
       style={{
         height: `calc(100%-${aboveElementHeight}px)`,
       }}
-      // activeKey={location.pathname}
+      activeKey={location.pathname}
     >
       {!rooms && (
         <Loader center vertical content="loading" speed="slow" size="md" />
