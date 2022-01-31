@@ -7,6 +7,8 @@ import PresenceDot from '../../PresenceDot';
 import { Button } from 'rsuite';
 import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
+import IconBtnControl from './IconBtnControl';
+import { AiOutlineHeart } from 'react-icons/ai';
 
 const MessageItem = ({ message, handleAdmin }) => {
   const { author, createdAt, text } = message;
@@ -49,6 +51,15 @@ const MessageItem = ({ message, handleAdmin }) => {
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
+        />
+
+        <IconBtnControl
+          {...(false ? { appearance: 'primary', color: 'red' } : {})}
+          isVisible
+          iconName={AiOutlineHeart}
+          tooltip="like this message"
+          onClick={() => {}}
+          badgeContent={5}
         />
       </div>
 

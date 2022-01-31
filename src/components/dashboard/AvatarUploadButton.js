@@ -108,7 +108,8 @@ export const AvatarUploadButton = () => {
       <ProfileAvatar
         src={profile.avatar}
         name={profile.name}
-        className="width-200 height-200 img-fullsize font-huge"
+        // as="img"
+        // className="w-100 h-100 img font-huge"
         style={{ height: '200px', width: '200px' }}
       />
 
