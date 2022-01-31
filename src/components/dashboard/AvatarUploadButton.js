@@ -5,6 +5,9 @@ import AvatarEditor from 'react-avatar-editor';
 import { storage } from '../../misc/firebase';
 import { useProfile } from '../../context/profile.context';
 import ProfileAvatar from './ProfileAvatar';
+// import { database } from 'firebase';
+import { database } from '../../misc/firebase';
+import { getUserUpdates } from '../../misc/helper';
 
 const fileInputTypes = '.png, .jpeg, .jpg, .PNG, .JPEG, .JPG';
 const acceptedFileTypes = [
@@ -67,17 +70,31 @@ export const AvatarUploadButton = () => {
       const canvas = avatarEditorRef.current.getImage();
       setIsLoading(true);
       const blob = await getBlob(canvas);
+
       const avatarFileRef = storage
         .ref(`/profile/${profile.uid}`)
         .child('avatar');
+
       const uploadAvatarResult = await avatarFileRef.put(blob, {
         cacheControl: `public, max-age=${3600 * 24 * 3}`,
       });
+
       const downloadUrl = await uploadAvatarResult.ref.getDownloadURL();
-      const userAvatarRef = database
-        .ref(`/profiles/${profile.uid}`)
-        .child('avatar');
-      userAvatarRef.set(downloadUrl);
+
+      const updates = await getUserUpdates(
+        profile.uid,
+        'avatar',
+        downloadUrl,
+        database
+      );
+
+      await database.ref().update(updates);
+
+      // const userAvatarRef = database
+      //   .ref(`/profiles/${profile.uid}`)
+      //   .child('avatar');
+
+      // userAvatarRef.set(downloadUrl);
       setIsLoading(false);
       //alert about avatar upload
     } catch (err) {
