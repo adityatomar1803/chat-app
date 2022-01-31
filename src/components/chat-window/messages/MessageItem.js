@@ -20,7 +20,7 @@ const MessageItem = ({ message }) => {
         {/* <span className="ml-2">{author.name}</span> */}
         <ProfileInfoBtnModal
           profile={author}
-          as={Link}
+          // style={{hover: ''}}
           className="p-0 ml-1 text-black"
         />
         <TimeAgo
