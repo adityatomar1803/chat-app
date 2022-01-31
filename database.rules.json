@@ -8,11 +8,21 @@
     },
     "rooms": {
       ".read": "auth!==null",
-      ".write": "auth!==null"
+      ".write": "auth!==null",
+
+      "$room_id": {
+        ".read": "auth!==null",
+        ".write": "auth!==null"
+      }
     },
-    "$room_id": {
+    "messages": {
       ".read": "auth!==null",
-      ".write": "auth!==null"
+      ".write": "auth!==null",
+
+      "$messages_id": {
+        ".read": "auth!==null",
+        ".write": "auth!==null"
+      }
     },
     ".read": false,
     ".write": false
