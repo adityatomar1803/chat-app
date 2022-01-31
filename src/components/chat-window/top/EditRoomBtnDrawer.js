@@ -36,7 +36,13 @@ const EditRoomBtnDrawer = () => {
   };
   return (
     <div>
-      <Button appearance="primary" size="md" color="red" onClick={open}>
+      <Button
+        appearance="primary"
+        size="lg"
+        color="red"
+        onClick={open}
+        style={{ borderRadius: '30px' }}
+      >
         A
       </Button>
       <Drawer full={isMobile} open={isOpen} onClose={close}>
