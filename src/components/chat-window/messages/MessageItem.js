@@ -3,12 +3,14 @@ import ProfileAvatar from '../../dashboard/ProfileAvatar';
 import TimeAgo from 'timeago-react';
 import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import { Link } from 'react-router-dom';
+import PresenceDot from '../../PresenceDot';
 
 const MessageItem = ({ message }) => {
   const { author, createdAt, text } = message;
   return (
     <li className="padded mb-1">
       <div className="d-flex align-items-center font-bolder mb-1">
+        <PresenceDot uid={author.uid} />
         <ProfileAvatar
           src={author.avatar}
           name={author.name}
