@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Divider } from 'rsuite';
 import CreateRoomBtnModal from './dashboard/CreateRoomBtnModal';
 import DashboardToggle from './dashboard/DashboardToggle';
 import ChatRoomList from './rooms/ChatRoomList';
 
 const Sidebar = () => {
+  console.log('inside sidebar');
   const topSidebarRef = useRef();
   const [height, setHeight] = useState(0);
 
