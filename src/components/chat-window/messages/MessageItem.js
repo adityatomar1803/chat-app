@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import ProfileAvatar from '../../dashboard/ProfileAvatar';
 import TimeAgo from 'timeago-react';
 import ProfileInfoBtnModal from './ProfileInfoBtnModal';
 import { Link } from 'react-router-dom';
 import PresenceDot from '../../PresenceDot';
+import { Button } from 'rsuite';
+import { useCurrentRoom } from '../../../context/current-room.context';
+import { auth } from '../../../misc/firebase';
 
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, handleAdmin }) => {
   const { author, createdAt, text } = message;
+  const isAdmin = useCurrentRoom(v => v.isAdmin);
+  const admins = useCurrentRoom(v => v.admins);
+
+  const isMsgAuthorAdmin = admins.includes(author.uid);
+  const isAuthor = auth.currentUser.uid === author.uid;
+  const canGrantAdmin = isAdmin && !isAuthor;
+
   return (
     <li className="padded mb-1">
       <div className="d-flex align-items-center font-bolder mb-1">
@@ -22,7 +32,20 @@ const MessageItem = ({ message }) => {
           profile={author}
           // style={{hover: ''}}
           className="p-0 ml-1 text-black"
-        />
+        >
+          {canGrantAdmin && (
+            <Button
+              block
+              onClick={() => handleAdmin(author.uid)}
+              appearance="primary"
+              color="blue"
+            >
+              {isMsgAuthorAdmin
+                ? 'Remove admin permission'
+                : 'Give admin permission'}
+            </Button>
+          )}
+        </ProfileInfoBtnModal>
         <TimeAgo
           datetime={createdAt}
           className="font-normal text-black-45 ml-2"
@@ -36,4 +59,4 @@ const MessageItem = ({ message }) => {
   );
 };
 
-export default MessageItem;
+export default memo(MessageItem);
