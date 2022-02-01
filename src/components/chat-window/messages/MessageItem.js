@@ -10,15 +10,15 @@ import { auth } from '../../../misc/firebase';
 import IconBtnControl from './IconBtnControl';
 import { AiOutlineHeart } from 'react-icons/ai';
 
-const MessageItem = ({ message, handleAdmin }) => {
-  const { author, createdAt, text } = message;
+const MessageItem = ({ message, handleAdmin, handleLike }) => {
+  const { author, createdAt, text, likes, likesCount } = message;
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
 
   const isMsgAuthorAdmin = admins.includes(author.uid);
   const isAuthor = auth.currentUser.uid === author.uid;
   const canGrantAdmin = isAdmin && !isAuthor;
-
+  const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
   return (
     <li className="padded mb-1">
       <div className="d-flex align-items-center font-bolder mb-1">
@@ -54,11 +54,13 @@ const MessageItem = ({ message, handleAdmin }) => {
         />
 
         <IconBtnControl
-          {...(false ? { appearance: 'primary', color: 'red' } : {})}
+          {...(isLiked ? { appearance: 'primary', color: 'red' } : {})}
           isVisible
           iconName={AiOutlineHeart}
           tooltip="like this message"
-          onClick={() => {}}
+          onClick={() => {
+            handleLike(message.id);
+          }}
           badgeContent={5}
         />
       </div>
