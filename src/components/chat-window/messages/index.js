@@ -79,7 +79,7 @@ const Messages = () => {
   }, []);
 
   const handleDelete = useCallback(
-    async msgId => {
+    async (msgId, file) => {
       if (!window.confirm('delete this message')) {
         return;
       }
@@ -106,6 +106,15 @@ const Messages = () => {
       } catch (err) {
         //message not deleteed: alert
         console.log('msg dlted error');
+        return;
+      }
+      if (file) {
+        try {
+          const fileRef = await storage.refFromURL(file.url);
+          await fileRef.delete();
+        } catch (error) {
+          console.log('error', error);
+        }
       }
     },
     [chatId, messages]
