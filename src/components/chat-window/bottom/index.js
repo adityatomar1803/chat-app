@@ -8,6 +8,7 @@ import { Input, InputGroup } from 'rsuite';
 import firebase from 'firebase/app';
 import { useParams } from 'react-router';
 import { database } from '../../../misc/firebase';
+import AttachmentBtnModal from './AttachmentBtnModal';
 
 function assembleMessage(profile, chatId) {
   return {
@@ -72,6 +73,7 @@ const ChatBottom = () => {
   return (
     <div>
       <InputGroup>
+        <AttachmentBtnModal />
         <Input
           placeholder="write a new message here..."
           value={input}
