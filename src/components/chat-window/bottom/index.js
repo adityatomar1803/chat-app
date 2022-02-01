@@ -70,10 +70,43 @@ const ChatBottom = () => {
     }
   };
 
+  const afterUpload = useCallback(
+    async files => {
+      setIsLoading(true);
+      const updates = {};
+
+      files.forEach(file => {
+        const msgData = assembleMessage(profile, chatId);
+        msgData.file = file;
+
+        const messageId = database.ref('messages').push().key;
+        updates[`/messages/${messageId}`] = msgData;
+      });
+
+      const lastMsgId = Object.keys(updates).pop();
+      updates[`/rooms/${chatId}/lastMessage`] = {
+        ...updates[lastMsgId],
+        msgId: lastMsgId,
+      };
+
+      try {
+        console.log('inside try block of index/bottom');
+        await database.ref().update(updates);
+        // setInput('');
+        setIsLoading(false);
+      } catch (err) {
+        //alert error
+        setIsLoading(false);
+        console.log('error occured in index.js bottom msg send', err);
+      }
+    },
+    [chatId, profile]
+  );
+
   return (
     <div>
       <InputGroup>
-        <AttachmentBtnModal />
+        <AttachmentBtnModal afterUpload={afterUpload} />
         <Input
           placeholder="write a new message here..."
           value={input}
