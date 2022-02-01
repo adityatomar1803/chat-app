@@ -11,8 +11,27 @@ import IconBtnControl from './IconBtnControl';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { IoIosClose } from 'react-icons/io';
 import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
+import ImgBtnModal from './ImgBtnModal';
 
-const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
+const renderFileMessage = file => {
+  if (file.contentType.includes('image')) {
+    console.log('inside renderFileMessage');
+    return (
+      <div className="height-220">
+        <ImgBtnModal src={file.url} filename={file.name} />
+      </div>
+    );
+  }
+  return <a href={file.url}>Download {file.name}</a>;
+};
+
+const MessageItem = ({
+  message,
+  handleAdmin,
+  handleLike,
+  file,
+  handleDelete,
+}) => {
   const { author, createdAt, text, likes, likesCount } = message;
 
   const [selfRef, isHovered] = useHover();
@@ -86,7 +105,8 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
       </div>
 
       <div>
-        <span className="word-break-all">{text}</span>
+        {text && <span className="word-break-all">{text}</span>}
+        {file && renderFileMessage(file)}
       </div>
     </li>
   );
