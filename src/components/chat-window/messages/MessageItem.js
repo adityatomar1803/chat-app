@@ -9,15 +9,21 @@ import { useCurrentRoom } from '../../../context/current-room.context';
 import { auth } from '../../../misc/firebase';
 import IconBtnControl from './IconBtnControl';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { IoIosClose } from 'react-icons/io';
+import { useHover, useMediaQuery } from '../../../misc/custom-hooks';
 
-const MessageItem = ({ message, handleAdmin, handleLike }) => {
+const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
   const { author, createdAt, text, likes, likesCount } = message;
+
+  const [selfRef, isHovered] = useHover();
+  const isMobile = useMediaQuery('(max-width:992px)');
   const isAdmin = useCurrentRoom(v => v.isAdmin);
   const admins = useCurrentRoom(v => v.admins);
 
   const isMsgAuthorAdmin = admins.includes(author.uid);
   const isAuthor = auth.currentUser.uid === author.uid;
   const canGrantAdmin = isAdmin && !isAuthor;
+  const canShowIcons = isMobile || isHovered;
   const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
   return (
     <li className="padded mb-1">
@@ -55,14 +61,25 @@ const MessageItem = ({ message, handleAdmin, handleLike }) => {
 
         <IconBtnControl
           {...(isLiked ? { appearance: 'primary', color: 'red' } : {})}
-          isVisible
+          isVisible={canShowIcons}
           iconName={AiOutlineHeart}
           tooltip="like this message"
           onClick={() => {
             handleLike(message.id);
           }}
-          badgeContent={5}
+          badgeContent={likesCount}
         />
+
+        {isAuthor && (
+          <IconBtnControl
+            isVisible={canShowIcons}
+            iconName={IoIosClose}
+            tooltip="delete this message"
+            onClick={() => {
+              handleDelete(message.id);
+            }}
+          />
+        )}
       </div>
 
       <div>
