@@ -26,7 +26,10 @@ const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
   const canShowIcons = isMobile || isHovered;
   const isLiked = likes && Object.keys(likes).includes(auth.currentUser.uid);
   return (
-    <li className="padded mb-1">
+    <li
+      className={`padded mb-1 cursor-pointer ${isHovered ? 'bg-black-02' : ''}`}
+      ref={selfRef}
+    >
       <div className="d-flex align-items-center font-bolder mb-1">
         <PresenceDot uid={author.uid} />
         <ProfileAvatar
