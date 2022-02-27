@@ -34,14 +34,8 @@ const renderFileMessage = file => {
   return <a href={file.url}>Download {file.name}</a>;
 };
 
-const MessageItem = ({
-  message,
-  handleAdmin,
-  handleLike,
-  file,
-  handleDelete,
-}) => {
-  const { author, createdAt, text, likes, likesCount } = message;
+const MessageItem = ({ message, handleAdmin, handleLike, handleDelete }) => {
+  const { author, file, createdAt, text, likes, likesCount } = message;
 
   const [selfRef, isHovered] = useHover();
   const isMobile = useMediaQuery('(max-width:992px)');

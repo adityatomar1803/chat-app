@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'rsuite';
 import { useModalState } from '../../../misc/custom-hooks';
 
-const ImgBtnModal = ({ scr, fileName }) => {
+const ImgBtnModal = ({ src, fileName }) => {
   const { isOpen, open, close } = useModalState();
   console.log('inside imgbtnmodal');
   return (
@@ -26,8 +26,9 @@ const ImgBtnModal = ({ scr, fileName }) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <a href={src} target="_blank" rel="noopener noreferrer"></a>
-          View Original
+          <a href={src} target="_blank" rel="noopener noreferrer">
+            View Original
+          </a>
         </Modal.Footer>
       </Modal>
     </>
